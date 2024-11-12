@@ -60,15 +60,13 @@ from operator import truediv
 class Animal:
     def __init__(self, name):
         self.name = name    # индивидуальное название каждого животного
-        self.alive = True   # живой
-        self.fed = False    # накормленный
+    alive = True   # живой
+    fed = False    # накормленный
 
     def eat(self, food):
-        self.food = food
+        # self.food = food
         if isinstance(food, Plant):
-            if isinstance(food, Fruit):
-                 food.edible = True
-            # print(f'отладка {food.name} food.edible={food.edible}')
+            print(f'отладка {food.name} food.edible={food.edible}')
             if food.edible == True:
                 print(f'{self.name} съел {food.name}')
                 self.fed = True
@@ -79,7 +77,8 @@ class Animal:
 class Plant:
     def __init__(self, name):
         self.name = name    # индивидуальное название каждого растения
-        self.edible = False # съедобность
+
+    edible = False # съедобность
 
 class Mammal(Animal):
     pass
@@ -91,7 +90,7 @@ class Flower(Plant):
     pass
 
 class Fruit(Plant):
-    pass
+    edible = True  # съедобность
 
 a1 = Predator('Волк с Уолл-Стрит')
 a2 = Mammal('Хатико')
