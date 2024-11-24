@@ -37,7 +37,7 @@ class WordsFinder:
     def get_all_words(self):
         all_words = {}
         for f in self.file_names:
-            with open(f, 'r') as file:
+            with open(f, 'r', encoding='utf-8') as file:
                 txt = file.read()
                 txt_f = "".join(c.lower() for c in txt if c not in [',', '.', '=', '!', '?', ';', ':', ' - '])
                 all_words[f] = txt_f.split()
