@@ -106,11 +106,11 @@ class Bank:
 
     def deposit(self):
         for t in range(100):
-            if self.balance >= 500 and self.lock.locked():
-                sum = random.randint(50, 500)
-                self.balance += sum
-                print(f'Пополнение: {sum}. Баланс: {self.balance}\n')
+            if self.lock.locked():
                 self.lock.release()  # снять блокировку потока
+            sum = random.randint(50, 500)
+            self.balance += sum
+            print(f'Пополнение: {sum}. Баланс: {self.balance}\n')
             time.sleep(0.001)
 
     def take(self):
@@ -120,10 +120,10 @@ class Bank:
             if sum <= self.balance: # and self.lock.locked() == False:
                 self.balance -= sum
                 print(f'Снятие: {sum}. Баланс: {self.balance}\n')
-        else:
-            print(f'Запрос отклонён, недостаточно средств\n')
-            self.lock.acquire()  # установить блокировку потока
-        time.sleep(0.001)
+            else:
+                print(f'Запрос отклонён, недостаточно средств\n')
+                self.lock.acquire()  # установить блокировку потока
+            time.sleep(0.001)
 
 bk = Bank()
 # Т.к. методы принимают self, в потоки нужно передать сам объект класса Bank
